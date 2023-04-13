@@ -1,5 +1,5 @@
 struct robot_path
 {
     int32_t num;
-    float path[num][3];
+    float path[num][2];
 }

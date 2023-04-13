@@ -26,6 +26,12 @@ class robot_status
 
         int8_t     temp_m1;
 
+        int8_t     cur_m0;
+
+        int8_t     cur_m1;
+
+        int8_t     status_charge;
+
         int8_t     status_power;
 
         int8_t     status_emo;
@@ -42,9 +48,13 @@ class robot_status
 
         float      total_power;
 
-        int8_t     state;
+        int8_t     ui_motor_state;
 
-        int8_t     err_code;
+        int8_t     ui_loc_state;
+
+        int8_t     ui_auto_state;
+
+        int8_t     ui_obs_state;
 
         float      robot_pose[3];
 
@@ -164,6 +174,15 @@ int robot_status::_encodeNoHash(void *buf, int offset, int maxlen) const
     tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->temp_m1, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->cur_m0, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->cur_m1, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->status_charge, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->status_power, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
@@ -188,10 +207,16 @@ int robot_status::_encodeNoHash(void *buf, int offset, int maxlen) const
     tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->total_power, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->state, 1);
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->ui_motor_state, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->err_code, 1);
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->ui_loc_state, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->ui_auto_state, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->ui_obs_state, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
     tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->robot_pose[0], 3);
@@ -225,6 +250,15 @@ int robot_status::_decodeNoHash(const void *buf, int offset, int maxlen)
     tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->temp_m1, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->cur_m0, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->cur_m1, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->status_charge, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->status_power, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
@@ -249,10 +283,16 @@ int robot_status::_decodeNoHash(const void *buf, int offset, int maxlen)
     tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->total_power, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->state, 1);
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->ui_motor_state, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->err_code, 1);
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->ui_loc_state, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->ui_auto_state, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->ui_obs_state, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
     tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->robot_pose[0], 3);
@@ -276,11 +316,16 @@ int robot_status::_getEncodedSizeNoHash() const
     enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __int8_t_encoded_array_size(NULL, 1);
+    enc_size += __int8_t_encoded_array_size(NULL, 1);
+    enc_size += __int8_t_encoded_array_size(NULL, 1);
+    enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __float_encoded_array_size(NULL, 1);
     enc_size += __float_encoded_array_size(NULL, 1);
     enc_size += __float_encoded_array_size(NULL, 1);
     enc_size += __float_encoded_array_size(NULL, 1);
     enc_size += __float_encoded_array_size(NULL, 1);
+    enc_size += __int8_t_encoded_array_size(NULL, 1);
+    enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __float_encoded_array_size(NULL, 3);
@@ -290,7 +335,7 @@ int robot_status::_getEncodedSizeNoHash() const
 
 uint64_t robot_status::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0xb83fc0f9b02db463LL;
+    uint64_t hash = 0xb8cc9affbfd21e44LL;
     return (hash<<1) + ((hash>>63)&1);
 }
 

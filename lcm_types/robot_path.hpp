@@ -119,7 +119,7 @@ int robot_path::_encodeNoHash(void *buf, int offset, int maxlen) const
     if(tlen < 0) return tlen; else pos += tlen;
 
     for (int a0 = 0; a0 < this->num; a0++) {
-        tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->path[a0][0], 3);
+        tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->path[a0][0], 2);
         if(tlen < 0) return tlen; else pos += tlen;
     }
 
@@ -139,9 +139,9 @@ int robot_path::_decodeNoHash(const void *buf, int offset, int maxlen)
         return -1;
     }
     for (int a0 = 0; a0 < this->num; a0++) {
-        if(3) {
-            this->path[a0].resize(3);
-            tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->path[a0][0], 3);
+        if(2) {
+            this->path[a0].resize(2);
+            tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->path[a0][0], 2);
             if(tlen < 0) return tlen; else pos += tlen;
         }
     }
@@ -153,13 +153,13 @@ int robot_path::_getEncodedSizeNoHash() const
 {
     int enc_size = 0;
     enc_size += __int32_t_encoded_array_size(NULL, 1);
-    enc_size += this->num * __float_encoded_array_size(NULL, 3);
+    enc_size += this->num * __float_encoded_array_size(NULL, 2);
     return enc_size;
 }
 
 uint64_t robot_path::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0x0c3267abac548ddaLL;
+    uint64_t hash = 0x0c3267abac548dd9LL;
     return (hash<<1) + ((hash>>63)&1);
 }
 

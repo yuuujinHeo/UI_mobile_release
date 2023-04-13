@@ -1,0 +1,6 @@
+struct shared_path
+{
+	int8_t id;
+	int32_t num;
+  float path[num][2];
+}

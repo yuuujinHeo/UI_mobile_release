@@ -6,6 +6,6 @@ struct camera_data
     int8_t num;
     
     int32_t	image_len;
-    int32_t	image[num][image_len];
+    int8_t	image[num][image_len];
     string  serial[num];
 }
