@@ -1,4 +1,4 @@
 #!/bin/bash
 cd ~/UI_MOBILE_release
-#./MAIN_MOBILE
+./MAIN_MOBILE
 exit 0
